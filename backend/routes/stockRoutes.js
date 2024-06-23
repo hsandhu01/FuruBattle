@@ -1,7 +1,8 @@
 const express = require('express');
-const { getStock } = require('../controllers/stockController');
 const router = express.Router();
+const stockController = require('../controllers/stockController');
 
-router.get('/:symbol', getStock);
+// Define routes
+router.get('/history/:symbol', stockController.getStockHistory);
 
 module.exports = router;

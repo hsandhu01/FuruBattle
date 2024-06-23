@@ -1,29 +1,36 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import NavBar from './components/Navbar';
 import Home from './components/Home';
+import Login from './components/Login';
+import Register from './components/Register';
 import Portfolio from './components/Portfolio';
 import Trades from './components/Trades';
 import Leaderboard from './components/Leaderboard';
-import Register from './components/Register';
-import Login from './components/Login';
+import AddTrade from './components/AddTrade';
+import StockHistory from './components/StockHistory';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const App = () => {
-  const isAuthenticated = false; // This should come from your auth logic
-
+function App() {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/portfolio" element={isAuthenticated ? <Portfolio /> : <Navigate to="/login" />} />
-        <Route path="/trades" element={isAuthenticated ? <Trades /> : <Navigate to="/login" />} />
-        <Route path="/leaderboard" element={isAuthenticated ? <Leaderboard /> : <Navigate to="/login" />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
+      <div className="App">
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/trades" element={<Trades />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/add-trade" element={<AddTrade />} />
+          <Route path="/stock-history" element={<StockHistory symbol="AAPL" />} />
+        </Routes>
+        <ToastContainer />
+      </div>
     </Router>
   );
-};
+}
 
 export default App;
