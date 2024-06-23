@@ -1,5 +1,9 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 const authRoutes = require('./routes/authRoutes');
 const stockRoutes = require('./routes/stockRoutes');
 const triviaRoutes = require('./routes/triviaRoutes');
@@ -7,10 +11,6 @@ const tradeRoutes = require('./routes/tradeRoutes');
 const competitionRoutes = require('./routes/competitionRoutes');
 const leaderboardRoutes = require('./routes/leaderboardRoutes');
 const portfolioRoutes = require('./routes/portfolioRoutes');
-const dotenv = require('dotenv');
-
-// Load environment variables
-dotenv.config();
 
 const app = express();
 

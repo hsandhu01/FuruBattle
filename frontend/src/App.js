@@ -9,8 +9,6 @@ import Trades from './components/Trades';
 import Leaderboard from './components/Leaderboard';
 import AddTrade from './components/AddTrade';
 import StockHistory from './components/StockHistory';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -25,9 +23,8 @@ function App() {
           <Route path="/trades" element={<Trades />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/add-trade" element={<AddTrade />} />
-          <Route path="/stock-history" element={<StockHistory symbol="AAPL" />} />
+          <Route path="/stock-history" element={<StockHistory />} />
         </Routes>
-        <ToastContainer />
       </div>
     </Router>
   );

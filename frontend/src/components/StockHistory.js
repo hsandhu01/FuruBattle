@@ -1,38 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
-function StockHistory({ symbol }) {
-  const [history, setHistory] = useState([]);
+const StockHistory = () => {
+  const [symbol, setSymbol] = useState('');
+  const [data, setData] = useState([]);
+  const [error, setError] = useState('');
 
-  useEffect(() => {
-    const fetchStockHistory = async () => {
-      try {
-        const response = await axios.get(
-          `https://www.alphavantage.co/query`, {
-            params: {
-              function: 'TIME_SERIES_DAILY',
-              symbol: symbol,
-              apikey: process.env.REACT_APP_ALPHA_VANTAGE_API_KEY,
-            },
-          }
-        );
-        const timeSeries = response.data['Time Series (Daily)'];
-        const formattedData = Object.keys(timeSeries).map(date => ({
-          date,
-          ...timeSeries[date]
-        }));
-        setHistory(formattedData);
-      } catch (error) {
-        console.error('Error fetching stock history:', error);
-      }
-    };
-
-    fetchStockHistory();
-  }, [symbol]);
+  const fetchStockData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/stocks/history/${symbol}`);
+      console.log(response.data); // Log to check the data structure
+      setData(response.data);
+      setError('');
+    } catch (error) {
+      console.error(error); // Log error for debugging
+      setError('Error fetching data');
+      setData([]);
+    }
+  };
 
   return (
     <div>
-      <h2>{symbol} Stock History</h2>
+      <h2>Stock History</h2>
+      <input 
+        type="text" 
+        value={symbol} 
+        onChange={(e) => setSymbol(e.target.value.toUpperCase())} 
+        placeholder="Enter stock symbol" 
+      />
+      <button onClick={fetchStockData}>Fetch History</button>
+      {error && <p>{error}</p>}
       <table>
         <thead>
           <tr>
@@ -45,20 +42,26 @@ function StockHistory({ symbol }) {
           </tr>
         </thead>
         <tbody>
-          {history.map((entry) => (
-            <tr key={entry.date}>
-              <td>{entry.date}</td>
-              <td>{entry['1. open']}</td>
-              <td>{entry['2. high']}</td>
-              <td>{entry['3. low']}</td>
-              <td>{entry['4. close']}</td>
-              <td>{entry['5. volume']}</td>
+          {data.length > 0 ? (
+            data.map((day, index) => (
+              <tr key={index}>
+                <td>{day.date}</td>
+                <td>{day.open}</td>
+                <td>{day.high}</td>
+                <td>{day.low}</td>
+                <td>{day.close}</td>
+                <td>{day.volume}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="6">No data available</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
   );
-}
+};
 
 export default StockHistory;
