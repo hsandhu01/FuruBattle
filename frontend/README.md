@@ -1,70 +1,156 @@
-# Getting Started with Create React App
+FuruBattle
+FuruBattle is a stock investing competition platform where users can simulate stock trading and compete in various competitions. The platform allows users to register, log in, manage their portfolios, add trades, and view leaderboards.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Features
+User Registration and Login
+Portfolio Management
+Add Trades (Buy/Sell)
+View Leaderboards
+Firebase Authentication Integration
+Backend API with Node.js and Express
+MongoDB for Data Storage
+Frontend with React
+Technologies Used
+Frontend: React, React Router, Bootstrap
+Backend: Node.js, Express, MongoDB
+Authentication: Firebase Authentication
+Stock Price API: Alpha Vantage
+Installation
+Prerequisites
+Node.js
+MongoDB
+Firebase Project
+Alpha Vantage API Key
+Steps
+Clone the repository:
 
-## Available Scripts
+bash
+Copy code
+git clone https://github.com/hsandhu01/FuruBattle.git
+cd FuruBattle
+Install Backend Dependencies:
 
-In the project directory, you can run:
+bash
+Copy code
+npm install
+Set Up Environment Variables:
+Create a .env file in the root directory and add the following:
 
-### `npm start`
+makefile
+Copy code
+MONGO_URI=your_mongo_uri
+JWT_SECRET=your_jwt_secret
+ALPHA_VANTAGE_API_KEY=your_alpha_vantage_api_key
+Start the Backend Server:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+bash
+Copy code
+npm run dev
+Set Up Firebase:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Go to the Firebase Console.
+Create a new project.
+Enable Email/Password authentication (and any other authentication methods you want to use).
+Get your Firebase configuration and replace the placeholders in src/firebase.js.
+Install Frontend Dependencies:
 
-### `npm test`
+bash
+Copy code
+cd frontend
+npm install
+Start the Frontend Development Server:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+bash
+Copy code
+npm start
+Directory Structure
+arduino
+Copy code
+FuruBattle/
+├── backend/
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   ├── competitionController.js
+│   │   ├── portfolioController.js
+│   │   ├── tradeController.js
+│   ├── models/
+│   │   ├── Competition.js
+│   │   ├── Trade.js
+│   │   ├── User.js
+│   ├── routes/
+│   │   ├── auth.js
+│   │   ├── competitions.js
+│   │   ├── portfolios.js
+│   │   ├── trades.js
+│   ├── middleware/
+│   │   ├── authMiddleware.js
+│   ├── config/
+│   │   ├── db.js
+│   ├── .env
+│   ├── app.js
+│   ├── server.js
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── AddTrade.js
+│   │   │   ├── Home.js
+│   │   │   ├── Leaderboard.js
+│   │   │   ├── Login.js
+│   │   │   ├── Navbar.js
+│   │   │   ├── Portfolio.js
+│   │   │   ├── Register.js
+│   │   ├── App.js
+│   │   ├── firebase.js
+│   │   ├── index.js
+│   ├── package.json
+│   ├── README.md
+└── README.md
+API Endpoints
+Authentication
+Register User
 
-### `npm run build`
+POST /api/auth/register
+Request Body: { "name": "string", "email": "string", "password": "string" }
+Response: { "token": "string" }
+Login User
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+POST /api/auth/login
+Request Body: { "email": "string", "password": "string" }
+Response: { "token": "string" }
+Portfolio
+Get Portfolio
+GET /api/portfolio
+Headers: { "x-auth-token": "string" }
+Response: { "cash": number, "holdings": array, "totalValue": number }
+Trades
+Add Trade
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+POST /api/trades
+Headers: { "x-auth-token": "string" }
+Request Body: { "symbol": "string", "quantity": number, "type": "string", "competitionId": "string" }
+Response: { "trade": "object" }
+Get Trades
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+GET /api/trades
+Headers: { "x-auth-token": "string" }
+Response: { "trades": array }
+Leaderboard
+Get Leaderboard
+GET /api/leaderboard/:competitionId
+Headers: { "x-auth-token": "string" }
+Response: { "leaderboard": array }
+Usage
+Register a new user via the registration form.
+Login with the registered user credentials.
+Add trades to your portfolio by providing the stock symbol, quantity, and trade type (buy/sell).
+View your portfolio to see your holdings and total value.
+Join competitions and view the leaderboard to see how you rank against other users.
+Contributing
+Fork the repository.
+Create a new branch: git checkout -b my-feature-branch.
+Make your changes and commit them: git commit -m 'Add some feature'.
+Push to the branch: git push origin my-feature-branch.
+Submit a pull request.
+License
+This project is licensed under the MIT License.
