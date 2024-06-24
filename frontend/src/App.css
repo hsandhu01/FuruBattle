@@ -36,3 +36,39 @@
     transform: rotate(360deg);
   }
 }
+
+/* New styles for enhanced look */
+body {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+h2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+button {
+  margin-top: 10px;
+}
+
+form {
+  max-width: 400px;
+  margin: auto;
+}
+
+input {
+  margin-bottom: 10px;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.row {
+  margin-bottom: 20px;
+}

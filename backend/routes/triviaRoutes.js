@@ -1,8 +1,7 @@
 const express = require('express');
-const { getTrivia, addTrivia } = require('../controllers/triviaController');
 const router = express.Router();
+const triviaController = require('../controllers/triviaController');
 
-router.get('/', getTrivia);
-router.post('/', addTrivia);
+router.get('/questions', triviaController.getTriviaQuestions);
 
 module.exports = router;
