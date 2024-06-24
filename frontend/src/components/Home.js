@@ -1,14 +1,16 @@
 import React from 'react';
-import { toast } from 'react-toastify';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const Home = () => {
-  const notify = () => toast("Welcome to FuruBattle!");
-
   return (
-    <div>
-      <h1>Welcome to FuruBattle</h1>
-      <button onClick={notify}>Notify!</button>
-    </div>
+    <Container className="mt-5">
+      <Row>
+        <Col className="text-center">
+          <h2>Welcome to FuruBattle</h2>
+          <p>Compete in stock investing competitions and test your knowledge with stock market trivia!</p>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

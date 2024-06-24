@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import NavBar from './components/Navbar';
+import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -9,16 +9,13 @@ import Trades from './components/Trades';
 import Leaderboard from './components/Leaderboard';
 import AddTrade from './components/AddTrade';
 import StockHistory from './components/StockHistory';
-import StockTrivia from './components/StockTrivia'; // Import StockTrivia
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import StockTrivia from './components/StockTrivia';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <NavBar />
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -28,9 +25,8 @@ function App() {
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/add-trade" element={<AddTrade />} />
           <Route path="/stock-history" element={<StockHistory />} />
-          <Route path="/trivia" element={<StockTrivia />} /> {/* Add StockTrivia route */}
+          <Route path="/stock-trivia" element={<StockTrivia />} />
         </Routes>
-        <ToastContainer />
       </div>
     </Router>
   );

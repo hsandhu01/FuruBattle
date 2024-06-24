@@ -1,36 +1,33 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const StockHistory = () => {
-  const [symbol, setSymbol] = useState('');
-  const [data, setData] = useState([]);
-  const [error, setError] = useState('');
+  const [symbol, setSymbol] = useState('AAPL');
+  const [stockData, setStockData] = useState([]);
 
   const fetchStockData = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/stocks/history/${symbol}`);
-      console.log(response.data); // Log to check the data structure
-      setData(response.data);
-      setError('');
+      const response = await axios.get(`http://localhost:5000/api/stocks/history/${symbol.toUpperCase()}`);
+      setStockData(response.data);
     } catch (error) {
-      console.error(error); // Log error for debugging
-      setError('Error fetching data');
-      setData([]);
+      toast.error('Error fetching stock history');
+      console.error('Error fetching stock history:', error);
     }
   };
 
   return (
-    <div>
-      <h2>Stock History</h2>
-      <input 
-        type="text" 
-        value={symbol} 
-        onChange={(e) => setSymbol(e.target.value.toUpperCase())} 
-        placeholder="Enter stock symbol" 
+    <div className="container">
+      <h2>Stock History for {symbol.toUpperCase()}</h2>
+      <input
+        type="text"
+        value={symbol}
+        onChange={(e) => setSymbol(e.target.value)}
+        placeholder="Enter stock symbol"
       />
-      <button onClick={fetchStockData}>Fetch History</button>
-      {error && <p>{error}</p>}
-      <table>
+      <button onClick={fetchStockData} className="btn btn-primary mt-2">Get History</button>
+      <table className="table table-striped mt-4">
         <thead>
           <tr>
             <th>Date</th>
@@ -42,24 +39,19 @@ const StockHistory = () => {
           </tr>
         </thead>
         <tbody>
-          {data.length > 0 ? (
-            data.map((day, index) => (
-              <tr key={index}>
-                <td>{day.date}</td>
-                <td>{day.open}</td>
-                <td>{day.high}</td>
-                <td>{day.low}</td>
-                <td>{day.close}</td>
-                <td>{day.volume}</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="6">No data available</td>
+          {stockData.map((entry) => (
+            <tr key={entry.date}>
+              <td>{entry.date}</td>
+              <td>{entry['1. open']}</td>
+              <td>{entry['2. high']}</td>
+              <td>{entry['3. low']}</td>
+              <td>{entry['4. close']}</td>
+              <td>{entry['5. volume']}</td>
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
+      <ToastContainer />
     </div>
   );
 };
