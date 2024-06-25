@@ -1,41 +1,51 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
+
+const Nav = styled.nav`
+  background-color: #2c2c2c;
+  padding: 1rem 2rem;
+`;
+
+const NavList = styled.ul`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const NavItem = styled.li`
+  margin: 0 1rem;
+`;
+
+const StyledNavLink = styled(NavLink)`
+  color: #e0e0e0;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+
+  &:hover, &.active {
+    color: #3498db;
+  }
+`;
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container">
-        <Link className="navbar-brand" to="/">FuruBattle</Link>
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to="/portfolio">Portfolio</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/trades">Trades</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/leaderboard">Leaderboard</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/add-trade">Add Trade</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/stock-history">Stock History</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/stock-trivia">Stock Trivia</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/login">Login</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/register">Register</Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <Nav>
+      <NavList>
+        <NavItem><StyledNavLink to="/" end>FuruBattle</StyledNavLink></NavItem>
+        <NavItem><StyledNavLink to="/portfolio">Portfolio</StyledNavLink></NavItem>
+        <NavItem><StyledNavLink to="/trades">Trades</StyledNavLink></NavItem>
+        <NavItem><StyledNavLink to="/leaderboard">Leaderboard</StyledNavLink></NavItem>
+        <NavItem><StyledNavLink to="/add-trade">Add Trade</StyledNavLink></NavItem>
+        <NavItem><StyledNavLink to="/stock-history">Stock History</StyledNavLink></NavItem>
+        <NavItem><StyledNavLink to="/stock-trivia">Stock Trivia</StyledNavLink></NavItem>
+        <NavItem><StyledNavLink to="/login">Login</StyledNavLink></NavItem>
+        <NavItem><StyledNavLink to="/register">Register</StyledNavLink></NavItem>
+      </NavList>
+    </Nav>
   );
 };
 

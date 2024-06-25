@@ -6,11 +6,11 @@ exports.register = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    console.log('Registering user:', email); // Add this line
+    console.log('Registering user:', email);
 
     let user = await User.findOne({ email });
     if (user) {
-      console.log('User already exists'); // Add this line
+      console.log('User already exists');
       return res.status(400).json({ msg: 'User already exists' });
     }
 
@@ -30,7 +30,7 @@ exports.register = async (req, res) => {
       id: user.id,
     };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign(payload, process.env.JWT_SECRET || 'fallback_secret', { expiresIn: '1h' });
 
     res.json({ token });
   } catch (err) {
@@ -57,7 +57,7 @@ exports.login = async (req, res) => {
       id: user.id,
     };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign(payload, process.env.JWT_SECRET || 'fallback_secret', { expiresIn: '1h' });
 
     res.json({ token });
   } catch (err) {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import triviaData from './triviaData';
+import { triviaData } from './triviaData';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
@@ -7,7 +7,6 @@ const StockTrivia = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [score, setScore] = useState(0);
-  const [showAnswer, setShowAnswer] = useState(false);
 
   const currentQuestion = triviaData[questionIndex];
 
@@ -16,15 +15,16 @@ const StockTrivia = () => {
   };
 
   const handleNextQuestion = () => {
+    if (!selectedOption) return;
+
     if (selectedOption === currentQuestion.answer) {
       setScore(score + 1);
       toast.success('Correct!');
     } else {
       toast.error(`Wrong! The correct answer is ${currentQuestion.answer}`);
     }
-    setSelectedOption(null);
-    setShowAnswer(false);
     setQuestionIndex((prevIndex) => (prevIndex + 1) % triviaData.length);
+    setSelectedOption(null);
   };
 
   return (
@@ -44,7 +44,7 @@ const StockTrivia = () => {
                   {option}
                 </Button>
               ))}
-              <Button variant="success" onClick={handleNextQuestion} className="mt-3">
+              <Button variant="success" onClick={handleNextQuestion} className="mt-3" disabled={!selectedOption}>
                 Next Question
               </Button>
             </Card.Body>
