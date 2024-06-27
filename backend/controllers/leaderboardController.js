@@ -7,7 +7,7 @@ const getStockPrice = async (symbol) => {
       function: 'TIME_SERIES_INTRADAY',
       symbol: symbol,
       interval: '1min',
-      apikey: 'GHAEXZWKRC184TKV'
+      apikey: process.env.ALPHA_VANTAGE_API_KEY
     }
   });
   const timeSeries = response.data['Time Series (1min)'];
