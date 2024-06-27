@@ -1,8 +1,9 @@
 const express = require('express');
-const { getLeaderboard } = require('../controllers/leaderboardController');
+const { saveScore, getLeaderboard } = require('../controllers/leaderboardController');
 const authMiddleware = require('../utils/authMiddleware');
 const router = express.Router();
 
-router.get('/:id', authMiddleware, getLeaderboard);
+router.post('/', authMiddleware, saveScore);
+router.get('/', getLeaderboard);
 
 module.exports = router;

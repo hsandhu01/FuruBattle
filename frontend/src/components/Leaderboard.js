@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Container, Table } from 'react-bootstrap';
 
-function Leaderboard() {
+const Leaderboard = () => {
   const [leaderboard, setLeaderboard] = useState([]);
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const result = await axios.get('http://localhost:5000/api/leaderboard/667755201f98ae8859078033', {
-          headers: {
-            'x-auth-token': localStorage.getItem('token')
-          }
-        });
+        const result = await axios.get('http://localhost:5000/api/leaderboard');
         setLeaderboard(result.data);
       } catch (error) {
         console.error('Error fetching leaderboard:', error);
@@ -22,17 +19,28 @@ function Leaderboard() {
   }, []);
 
   return (
-    <div>
-      <h1>Leaderboard</h1>
-      <ul>
-        {leaderboard.map((user, index) => (
-          <li key={index}>
-            {user.name} - ${user.totalValue}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Container className="mt-5">
+      <h2>Leaderboard</h2>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {leaderboard.map((entry, index) => (
+            <tr key={entry._id}>
+              <td>{index + 1}</td>
+              <td>{entry.user.name}</td>
+              <td>{entry.score}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </Container>
   );
-}
+};
 
 export default Leaderboard;
